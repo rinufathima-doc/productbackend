@@ -1,5 +1,5 @@
 import HttpError from "../helpers/httpError.js";
-import { User } from "../models/User.js";
+import  User from "../models/user.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { validationResult } from "express-validator";
@@ -8,6 +8,7 @@ import { validationResult } from "express-validator";
 
 export const userRegister = async (req, res, next) => {
   try {
+    console.log("Request body:", req.body); // Log the request body for debugging
     const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -18,7 +19,8 @@ export const userRegister = async (req, res, next) => {
   }
   else{
 
-     const { firstName, lastName, email, password } = req.body;
+     const { firstName, lastName, email, password,role } = req.body;
+     const userRole = role === "seller" ? "seller" : "customer";
 
     // Basic validation
     if (!firstName || !lastName || !email || !password) {
@@ -38,7 +40,7 @@ export const userRegister = async (req, res, next) => {
       lastName,
       email,
       password: hashedPassword,
-      role: "user", // 🔐 force default role
+      role: userRole, // 🔐 force default role
     });
 
     await newUser.save();

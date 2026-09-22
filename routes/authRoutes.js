@@ -1,15 +1,19 @@
 import express from "express";
 import { body } from "express-validator";
-import { userLogin, userRegister } from "../Controllers/authController.js";
+import { userLogin, userRegister } from "../controllers/authController.js";
 
 const authRouter = express.Router();
 
 authRouter.post(
   "/register",
   [
-    body("name")
+    body("firstName")
       .notEmpty()
-      .withMessage("Name is required"),
+      .withMessage("First name is required"),
+
+    body("lastName")
+      .notEmpty()
+      .withMessage("Last name is required"),
 
     body("email")
       .isEmail()
