@@ -1,7 +1,7 @@
 import HttpError from "../helpers/httpError.js";
 import { Product } from "../models/Product.js";
 import { validationResult } from "express-validator";
-import { Cart } from "../models/cart.js";
+import { Cart } from "../models/Cart.js";
 
 export const createProduct = async (req, res, next) => {
   try {
